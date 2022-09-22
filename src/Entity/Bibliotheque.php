@@ -20,9 +20,14 @@ class Bibliotheque
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Livre::class, mappedBy="bibliotheque", orphanRemoval=true, cascade={"persist"})
@@ -77,6 +82,18 @@ class Bibliotheque
                 $livre->setBibliotheque(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
