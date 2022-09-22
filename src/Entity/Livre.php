@@ -37,6 +37,12 @@ class Livre
      */
     private $date_parution;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bibliotheque::class, inversedBy="Livres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $bibliotheque;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,5 +94,22 @@ class Livre
         $this->date_parution = $date_parution;
 
         return $this;
+    }
+
+    public function getBibliotheque(): ?Bibliotheque
+    {
+        return $this->bibliotheque;
+    }
+
+    public function setBibliotheque(?Bibliotheque $bibliotheque): self
+    {
+        $this->bibliotheque = $bibliotheque;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->titre;
     }
 }
