@@ -23,7 +23,7 @@ class Livre
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=5000)
+     * @ORM\Column(type="text")
      */
     private $summary;
 
