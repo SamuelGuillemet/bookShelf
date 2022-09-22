@@ -24,6 +24,7 @@ class BibliothequeCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextEditorField::new('description'),
+            AssociationField::new('membre'),
         ];
     }
 }

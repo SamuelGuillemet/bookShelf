@@ -34,6 +34,11 @@ class Bibliotheque
      */
     private $Livres;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="bibliotheque", cascade={"persist", "remove"})
+     */
+    private $membre;
+
     public function __construct()
     {
         $this->Livres = new ArrayCollection();
@@ -98,8 +103,28 @@ class Bibliotheque
         return $this;
     }
 
+    /**
+     * @return Membre|null
+     */
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(Membre $membre): self
+    {
+        // set the owning side of the relation if necessary
+        if ($membre->getBibliotheque() !== $this) {
+            $membre->setBibliotheque($this);
+        }
+
+        $this->membre = $membre;
+
+        return $this;
+    }
+
     public function __toString(): string //TODO
     {
-        return $this->description;
+        return $this->name;
     }
 }
