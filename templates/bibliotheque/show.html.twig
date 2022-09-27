@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{bibliotheque.name}}
+{% endblock %}
+
+{% block body %}
+	<h1>Détail de la bibliothèque :</h1>
+	<h2>{{bibliotheque.name}}</h2>
+	<h3>Description</h3>
+	<p>{{bibliotheque.description}}</p>
+	<h3>Inventaire des livres :</h3>
+	<ul>
+		{% for livre in bibliotheque.livres %}
+			<li>{{livre.titre}}</li>
+		{% endfor %}
+	</ul>
+	<h3>Membre propriétaire la bibliotheque :</h3>
+	<p>{{bibliotheque.membre.nom}}
+		{{bibliotheque.membre.prenom}}</p>
+	<a href={{path('app_bibliotheque')}}>Retour à l'accueil</a>
+
+{% endblock %}
