@@ -49,9 +49,9 @@ class AppFixtures extends Fixture
      */
     private static function membresDataGenerator()
     {
-        yield ["La belle biblio", "Membre 1", "Description 1", date_create("1990-01-01")];
-        yield ["La biblio de l'enfer", "Membre 2", "Description 2", date_create("1990-01-02")];
-        yield ["L'endoit des lecteurs", "Membre 3", "Description 3", date_create("1990-01-03")];
+        yield ["La belle biblio", "Samuel", "Guillemet", "Bonjour je suis Samuel Guillemet"];
+        yield ["La biblio de l'enfer", "Jean", "Dujardin", "Je suis un lecteur"];
+        yield ["L'endoit des lecteurs", "Michel", "Dupont", "Je suis un passioné"];
     }
 
     public function load(ObjectManager $manager): void
@@ -78,13 +78,13 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        foreach (self::membresDataGenerator() as [$bibliotheque_name, $name, $description, $birth_date]) {
+        foreach (self::membresDataGenerator() as [$bibliotheque_name, $nom, $prenom, $bio]) {
             $bibliotheque = $bibliothequeRepo->findOneBy(["name" => $bibliotheque_name]);
             $membre = new Membre();
-            $membre->setName($name);
-            $membre->setDescription($description);
-            $membre->setBirthDate($birth_date);
-            $membre->setBibliotheque($bibliotheque);
+            $membre->setNom($nom);
+            $membre->setPrenom($prenom);
+            $membre->setBio($bio);
+            $membre->setBibliothequePerso($bibliotheque);
             $manager->persist($membre);
         }
         $manager->flush();
