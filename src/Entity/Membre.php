@@ -20,78 +20,79 @@ class Membre
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $Nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Prenom;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private $Bio;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\OneToOne(targetEntity=Bibliotheque::class, inversedBy="membre", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $birth_date;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Bibliotheque::class, cascade={"persist", "remove"})
-     */
-    private $bibliotheque;
+    private $BibliothequePerso;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->Nom;
     }
 
-    public function setName(string $name): self
+    public function setNom(string $Nom): self
     {
-        $this->name = $name;
+        $this->Nom = $Nom;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->description;
+        return $this->Prenom;
     }
 
-    public function setDescription(string $description): self
+    public function setPrenom(string $Prenom): self
     {
-        $this->description = $description;
+        $this->Prenom = $Prenom;
 
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBio(): ?string
     {
-        return $this->birth_date;
+        return $this->Bio;
     }
 
-    public function setBirthDate(\DateTimeInterface $birth_date): self
+    public function setBio(string $Bio): self
     {
-        $this->birth_date = $birth_date;
+        $this->Bio = $Bio;
 
         return $this;
     }
 
-    public function getBibliotheque(): ?Bibliotheque
+    public function getBibliothequePerso(): ?Bibliotheque
     {
-        return $this->bibliotheque;
+        return $this->BibliothequePerso;
     }
 
-    public function setBibliotheque(?Bibliotheque $bibliotheque): self
+    public function setBibliothequePerso(Bibliotheque $BibliothequePerso): self
     {
-        $this->bibliotheque = $bibliotheque;
+        $this->BibliothequePerso = $BibliothequePerso;
 
         return $this;
     }
 
     public function __toString()
     {
-        return $this->name;
+        return $this->getNom() . ' ' . $this->getPrenom();
     }
 }

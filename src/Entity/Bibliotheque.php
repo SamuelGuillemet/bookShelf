@@ -35,7 +35,7 @@ class Bibliotheque
     private $Livres;
 
     /**
-     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="bibliotheque", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="BibliothequePerso", cascade={"persist", "remove"})
      */
     private $membre;
 
@@ -103,9 +103,11 @@ class Bibliotheque
         return $this;
     }
 
-    /**
-     * @return Membre|null
-     */
+    public function __toString(): string //TODO
+    {
+        return $this->name;
+    }
+
     public function getMembre(): ?Membre
     {
         return $this->membre;
@@ -114,17 +116,12 @@ class Bibliotheque
     public function setMembre(Membre $membre): self
     {
         // set the owning side of the relation if necessary
-        if ($membre->getBibliotheque() !== $this) {
-            $membre->setBibliotheque($this);
+        if ($membre->getBibliothequePerso() !== $this) {
+            $membre->setBibliothequePerso($this);
         }
 
         $this->membre = $membre;
 
         return $this;
-    }
-
-    public function __toString(): string //TODO
-    {
-        return $this->name;
     }
 }
