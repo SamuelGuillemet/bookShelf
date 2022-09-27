@@ -38,7 +38,7 @@ class Livre
     private $date_parution;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Bibliotheque::class, inversedBy="Livres")
+     * @ORM\ManyToOne(targetEntity=Bibliotheque::class, inversedBy="livres")
      * @ORM\JoinColumn(nullable=false)
      */
     private $bibliotheque;

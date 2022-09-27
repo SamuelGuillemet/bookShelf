@@ -20,79 +20,79 @@ class Membre
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Prenom;
+    private $prenom;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $Bio;
+    private $bio;
 
     /**
      * @ORM\OneToOne(targetEntity=Bibliotheque::class, inversedBy="membre", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $BibliothequePerso;
+    private $bibliothequePerso;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getnom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setnom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setPrenom(string $prenom): self
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getBio(): ?string
     {
-        return $this->Bio;
+        return $this->bio;
     }
 
-    public function setBio(string $Bio): self
+    public function setBio(string $bio): self
     {
-        $this->Bio = $Bio;
+        $this->bio = $bio;
 
         return $this;
     }
 
     public function getBibliothequePerso(): ?Bibliotheque
     {
-        return $this->BibliothequePerso;
+        return $this->bibliothequePerso;
     }
 
-    public function setBibliothequePerso(Bibliotheque $BibliothequePerso): self
+    public function setBibliothequePerso(Bibliotheque $bibliothequePerso): self
     {
-        $this->BibliothequePerso = $BibliothequePerso;
+        $this->bibliothequePerso = $bibliothequePerso;
 
         return $this;
     }
 
     public function __toString()
     {
-        return $this->getNom() . ' ' . $this->getPrenom();
+        return $this->getnom() . ' ' . $this->getPrenom();
     }
 }

@@ -32,16 +32,16 @@ class Bibliotheque
     /**
      * @ORM\OneToMany(targetEntity=Livre::class, mappedBy="bibliotheque", orphanRemoval=true, cascade={"persist"})
      */
-    private $Livres;
+    private $livres;
 
     /**
-     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="BibliothequePerso", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="bibliothequePerso", cascade={"persist", "remove"})
      */
     private $membre;
 
     public function __construct()
     {
-        $this->Livres = new ArrayCollection();
+        $this->livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,13 +66,13 @@ class Bibliotheque
      */
     public function getLivres(): Collection
     {
-        return $this->Livres;
+        return $this->livres;
     }
 
     public function addLivre(Livre $livre): self
     {
-        if (!$this->Livres->contains($livre)) {
-            $this->Livres[] = $livre;
+        if (!$this->livres->contains($livre)) {
+            $this->livres[] = $livre;
             $livre->setBibliotheque($this);
         }
 
@@ -81,7 +81,7 @@ class Bibliotheque
 
     public function removeLivre(Livre $livre): self
     {
-        if ($this->Livres->removeElement($livre)) {
+        if ($this->livres->removeElement($livre)) {
             // set the owning side to null (unless already changed)
             if ($livre->getBibliotheque() === $this) {
                 $livre->setBibliotheque(null);
