@@ -1,0 +1,7 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        bibliotheque:
+          label: "Bibiothèques"
+          route: "app_bibliotheque_list"
