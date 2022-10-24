@@ -8,10 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controleur bibliotheque 
+ * @Route("/bibliotheque")
+ */
 class BibliothequeController extends AbstractController
 {
     /**
-     * @Route("/bibliotheque", name="app_bibliotheque")
+     * @Route("/", name="app_bibliotheque_index")
      */
     public function index(ManagerRegistry $doctrine): Response
     {
@@ -22,7 +26,18 @@ class BibliothequeController extends AbstractController
     }
 
     /**
-     * @Route("/bibliotheque/{id}", name="app_bibliotheque_show", requirements={"id"="\d+"})
+     * @Route("/list", name="app_bibliotheque_list")
+     */
+    public function list(ManagerRegistry $doctrine): Response
+    {
+        return $this->render('bibliotheque/list.html.twig', [
+            'list_bibliotheques' => $doctrine->getManager()->getRepository(Bibliotheque::class)->findAll(),
+            'url_detail' => 'app_bibliotheque_detail',
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="app_bibliotheque_show", requirements={"id"="\d+"})
      * @param int $id
      */
     public function show(ManagerRegistry $doctrine, int $id): Response
