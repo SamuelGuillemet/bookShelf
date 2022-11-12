@@ -1,23 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{bibliotheque.name}}
+{% block title %}Bibliotheque
 {% endblock %}
 
 {% block main %}
 	<h1>Détail de la bibliothèque :</h1>
-	<h2>{{bibliotheque.name}}</h2>
-	<h3>Description</h3>
-	<p>{{bibliotheque.description}}</p>
-	<h3>Inventaire des livres :</h3>
-	<ul>
-		{% for livre in bibliotheque.livres %}
-			<li>{{livre.titre}}</li>
-		{% endfor %}
-	</ul>
-	<h3>Membre propriétaire la bibliotheque :</h3>
-	<p>{{bibliotheque.membre.nom}}
-		{{bibliotheque.membre.prenom}}</p>
-	<a href={{path('app_bibliotheque_list')}}>Retour à l'accueil</a>
+	<br>
+	<div>
+		<h2>{{bibliotheque.name}}</h2>
+	</div>
+	<br>
+	<div>
+		<h3>Description</h3>
+		<p>{{bibliotheque.description}}</p>
+	</div>
+	<br>
+	<div>
+		<h3>Inventaire des livres :</h3>
+		<ul>
+			{% for livre in bibliotheque.livres %}
+				<li>
+					<a href={{ path('app_livre_show', {'id': livre.id} )}}>{{livre.titre}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<a href={{ path('app_livre_new', {'id': bibliotheque.id} )}}>Ajouter un nouveau livre</a>
+	</div>
+	<br>
+	<div>
+		<h3>Membre propriétaire la bibliotheque :</h3>
+		<p>{{bibliotheque.membre.nom}}
+			{{bibliotheque.membre.prenom}}</p>
 
+		{{ include('bibliotheque/_back_form.html.twig') }}
+	</div>
+	<br>
+	<a href="{{ path('app_bibliotheque_edit', {'id': bibliotheque.id}) }}" class='btn btn-primary'>edit</a>
+
+	{{ include('bibliotheque/_delete_form.html.twig') }}
 {% endblock %}
