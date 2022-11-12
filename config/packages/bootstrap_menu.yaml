@@ -2,6 +2,35 @@ bootstrap_menu:
   menus:
     main:
       items:
+        membre:
+          label: "Membres"
+          route: "app_membre_index"
+          roles: ["ROLE_ADMIN"]
         bibliotheque:
           label: "Bibiothèques"
-          route: "app_bibliotheque_list"
+          route: "app_bibliotheque_index"
+          roles: ["ROLE_ADMIN"]
+        livre:
+          label: "Livres"
+          route: "app_livre_index"
+          roles: ["ROLE_USER"]
+        livre-favoris:
+          label: "Livres favoris"
+          route: "app_livre_index_favorite"
+        vitrine:
+          label: "Vitrines"
+          route: "app_vitrine_index"
+    anonymousaccount:
+      items:
+        login:
+          label: "Login"
+          route: "app_login"
+    #        register:
+    #           label: 'Register'
+    #           route: 'app_register'
+    account:
+      items:
+        logout:
+          label: "Logout"
+          route: "app_logout"
+          roles: ["ROLE_USER"]
