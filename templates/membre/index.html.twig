@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membre index
+{% endblock %}
+
+{% block main %}
+	<h1>Tout les membres de l'application</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Prenom</th>
+				<th>Bio</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for membre in membres %}
+				<tr>
+					<td>{{ membre.id }}</td>
+					<td>{{ membre.nom }}</td>
+					<td>{{ membre.prenom }}</td>
+					<td>{{ membre.bio}}</td>
+					<td>
+						<a href={{ path('app_membre_show', {'id': membre.id} ) }}>Voir le détail</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
