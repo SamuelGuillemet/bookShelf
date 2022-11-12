@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vitrine index
+{% endblock %}
+
+{% block main %}
+	<h1>Vitrine index</h1>
+
+	<h2>Vitrines publiques</h2>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Createur</th>
+				<th>Description</th>
+				<th>Published</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for vitrine in vitrines_publiques %}
+				<tr>
+					<td>{{ vitrine.id }}</td>
+					<td>{{ vitrine.createur }}</td>
+					<td>{{ vitrine.description }}</td>
+					<td>{{ vitrine.published ? 'Yes' : 'No' }}</td>
+					<td>
+						<a href="{{ path('app_vitrine_show', {'id': vitrine.id}) }}">show</a>
+						{% if app.user %}
+							{% if app.user == vitrine.createur.user or app.user.roles[0] == "ROLE_ADMIN" %}
+								<a href="{{ path('app_vitrine_edit', {'id': vitrine.id}) }}">edit</a>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% if app.user %}
+		<h2>Vitrines privées</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Createur</th>
+					<th>Description</th>
+					<th>Published</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for vitrine in vitrines_privees %}
+					<tr>
+						<td>{{ vitrine.id }}</td>
+						<td>{{ vitrine.createur }}</td>
+						<td>{{ vitrine.description }}</td>
+						<td>{{ vitrine.published ? 'Yes' : 'No' }}</td>
+						<td>
+							<a href="{{ path('app_vitrine_show', {'id': vitrine.id}) }}">show</a>
+							<a href="{{ path('app_vitrine_edit', {'id': vitrine.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+{% endblock %}
