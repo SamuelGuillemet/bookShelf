@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre
+{% endblock %}
+
+{% block main %}
+	<h1>Livre</h1>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ livre.id }}</td>
+			</tr>
+			<tr>
+				<th>Titre</th>
+				<td>{{ livre.titre }}</td>
+			</tr>
+			<tr>
+				<th>Summary</th>
+				<td>{{ livre.summary }}</td>
+			</tr>
+			<tr>
+				<th>Number_of_page</th>
+				<td>{{ livre.numberOfPage }}</td>
+			</tr>
+			<tr>
+				<th>Date_parution</th>
+				<td>{{ livre.dateParution ? livre.dateParution|date('Y-m-d') : '' }}</td>
+			</tr>
+			{% if livre.imageName %}
+				<tr>
+					<th>Image</th>
+					<td><img src={{ vich_uploader_asset(livre, 'imageFile') }}/></td>
+				</tr>
+			{% endif %}
+		</tbody>
+	</table>
+
+	{{ include('livre/_back_form.html.twig') }}
+
+	<a href={{ path('app_livre_edit', {'id': livre.id} ) }} class='btn btn-primary'>edit</a>
+
+	{{ include('livre/_delete_form.html.twig') }}
+{% endblock %}
