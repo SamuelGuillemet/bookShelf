@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Livre;
 use App\Entity\Bibliotheque;
+use App\Entity\Vitrine;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -34,5 +35,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Bibliothèques', 'fas fa-list', Bibliotheque::class);
         yield MenuItem::linkToCrud('Livres', 'fas fa-list', Livre::class);
+        yield MenuItem::linkToCrud('Vitrine', 'fas fa-list', Vitrine::class);
     }
 }
