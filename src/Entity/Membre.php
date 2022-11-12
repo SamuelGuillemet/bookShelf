@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,10 +35,25 @@ class Membre
     private $bio;
 
     /**
-     * @ORM\OneToOne(targetEntity=Bibliotheque::class, inversedBy="membre", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=Vitrine::class, mappedBy="createur")
      */
-    private $bibliothequePerso;
+    private $vitrines;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Bibliotheque::class, mappedBy="membre", orphanRemoval=true)
+     */
+    private $bibliotheques;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="membre", cascade={"persist", "remove"})
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->vitrines = new ArrayCollection();
+        $this->bibliotheques = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,20 +96,80 @@ class Membre
         return $this;
     }
 
-    public function getBibliothequePerso(): ?Bibliotheque
+    public function __toString()
     {
-        return $this->bibliothequePerso;
+        return $this->getnom() . ' ' . $this->getPrenom();
     }
 
-    public function setBibliothequePerso(Bibliotheque $bibliothequePerso): self
+    /**
+     * @return Collection<int, Vitrine>
+     */
+    public function getVitrines(): Collection
     {
-        $this->bibliothequePerso = $bibliothequePerso;
+        return $this->vitrines;
+    }
+
+    public function addVitrine(Vitrine $vitrine): self
+    {
+        if (!$this->vitrines->contains($vitrine)) {
+            $this->vitrines[] = $vitrine;
+            $vitrine->setCreateur($this);
+        }
 
         return $this;
     }
 
-    public function __toString()
+    public function removeVitrine(Vitrine $vitrine): self
     {
-        return $this->getnom() . ' ' . $this->getPrenom();
+        if ($this->vitrines->removeElement($vitrine)) {
+            // set the owning side to null (unless already changed)
+            if ($vitrine->getCreateur() === $this) {
+                $vitrine->setCreateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bibliotheque>
+     */
+    public function getBibliotheques(): Collection
+    {
+        return $this->bibliotheques;
+    }
+
+    public function addBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if (!$this->bibliotheques->contains($bibliotheque)) {
+            $this->bibliotheques[] = $bibliotheque;
+            $bibliotheque->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if ($this->bibliotheques->removeElement($bibliotheque)) {
+            // set the owning side to null (unless already changed)
+            if ($bibliotheque->getMembre() === $this) {
+                $bibliotheque->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
