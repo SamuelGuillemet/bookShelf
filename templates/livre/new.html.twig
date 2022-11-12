@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Livre
+{% endblock %}
+
+{% block main %}
+	<h1>Create new Livre</h1>
+
+	{{ include('livre/_form.html.twig') }}
+
+	{{ include('livre/_back_form.html.twig') }}
+{% endblock %}
