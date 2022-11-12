@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Bibliotheque
+{% endblock %}
+
+{% block main %}
+	<h1>Edit Bibliotheque</h1>
+
+	{{ include('bibliotheque/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('bibliotheque/_back_form.html.twig') }}
+
+	{{ include('bibliotheque/_delete_form.html.twig') }}
+{% endblock %}

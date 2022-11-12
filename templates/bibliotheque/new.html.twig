@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Bibliotheque
+{% endblock %}
+
+{% block main %}
+	<h1>Create new Bibliotheque</h1>
+
+	{{ include('bibliotheque/_form.html.twig') }}
+
+	{{ include('bibliotheque/_back_form.html.twig') }}
+{% endblock %}
