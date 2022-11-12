@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre
+{% endblock %}
+
+{% block main %}
+	<div class='display-favorite'>
+		<h1>Livre</h1>
+		{{ include('vitrine/_favorite_form.html.twig') }}
+	</div>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Titre</th>
+				<td>{{ livre.titre }}</td>
+			</tr>
+			<tr>
+				<th>Summary</th>
+				<td>{{ livre.summary }}</td>
+			</tr>
+			<tr>
+				<th>Number_of_page</th>
+				<td>{{ livre.numberOfPage }}</td>
+			</tr>
+			<tr>
+				<th>Date_parution</th>
+				<td>{{ livre.dateParution ? livre.dateParution|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Auteur</th>
+				<td>{{ livre.auteur }}</td>
+			</tr>
+			<tr>
+				<th>Genre</th>
+				<td>
+					<ul>
+						{% for genre in livre.types %}
+							<li>{{ genre }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href={{ path('app_vitrine_show', {'id': vitrine.id} ) }} class='btn btn-secondary'>Retour à la vitrine</a>
+
+	{% if app.user %}
+		{% if app.user == vitrine.createur.user or app.user.roles[0] == "ROLE_ADMIN" %}
+			<br>
+			<a href={{ path('app_livre_edit', {'id': livre.id} ) }} class='btn btn-primary'>Editer</a>
+
+			{{ include('livre/_delete_form.html.twig') }}
+		{% endif %}
+	{% endif %}
+{% endblock %}
