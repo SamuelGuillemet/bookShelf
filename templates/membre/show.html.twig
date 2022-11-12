@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membre show
+{% endblock %}
+
+{% block main %}
+	<h1>
+		Bienvenue dans vote espace,
+		{{membre.prenom}}
+		{{membre.nom}}
+		!
+	</h1>
+	<br>
+	<div>
+		<h2>Votre bibliotheque personnel</h2>
+		<ul>
+			{% for bibliotheque in membre.bibliotheques %}
+				<li>
+					<a href={{path('app_bibliotheque_show', {'id': bibliotheque.id} )}}>{{bibliotheque}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<a href={{path('app_bibliotheque_new', {'id': membre.id } )}}>Ajouter une bibliotheque</a>
+	</div>
+	<br>
+	<div>
+		<h2>Vos vitrines</h2>
+		<ul>
+			{% for vitrine in membre.vitrines %}
+				<li>
+					<a href={{path('app_vitrine_show', {'id': vitrine.id} )}}>{{vitrine}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<a href={{path('app_vitrine_new', {'id': membre.id } )}}>Ajouter une vitrine</a>
+	</div>
+{% endblock %}

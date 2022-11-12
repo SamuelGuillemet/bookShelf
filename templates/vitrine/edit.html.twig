@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Vitrine
+{% endblock %}
+
+{% block main %}
+	<h1>Edit Vitrine</h1>
+
+	{{ include('vitrine/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('vitrine/_back_form.html.twig') }}
+
+	{{ include('vitrine/_delete_form.html.twig') }}
+{% endblock %}

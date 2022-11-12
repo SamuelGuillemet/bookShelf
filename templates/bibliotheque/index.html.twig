@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliotheque index
+{% endblock %}
+
+{% block main %}
+	<h1>Bibliotheque index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Owner</th>
+				<th>Description</th>
+				<th>Name</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for bibliotheque in bibliotheques %}
+				<tr>
+					<td>{{ bibliotheque.id }}</td>
+					<td>{{ bibliotheque.membre }}</td>
+					<td>{{ bibliotheque.description }}</td>
+					<td>{{ bibliotheque.name }}</td>
+					<td>
+						<a href="{{ path('app_bibliotheque_show', {'id': bibliotheque.id}) }}">show</a>
+						<a href="{{ path('app_bibliotheque_edit', {'id': bibliotheque.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

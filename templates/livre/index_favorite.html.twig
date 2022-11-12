@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livres index favoris
+{% endblock %}
+
+{% block main %}
+	<h1>Livre(s) favoris</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titre</th>
+				<th>Summary</th>
+				<th>Number_of_page</th>
+				<th>Date_parution</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for livre in livres %}
+				<tr>
+					<td>{{ livre.id }}</td>
+					<td>{{ livre.titre }}</td>
+					<td>{{ livre.summary }}</td>
+					<td>{{ livre.numberOfPage }}</td>
+					<td>{{ livre.dateParution ? livre.dateParution|date('Y-m-d') : '' }}</td>
+					<td>{{ include('livre/_favorite_form.html.twig') }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

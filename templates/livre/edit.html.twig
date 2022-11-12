@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Livre
+{% endblock %}
+
+{% block main %}
+	<h1>Edit Livre</h1>
+
+	{{ include('livre/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('livre/_back_form.html.twig') }}
+
+	{{ include('livre/_delete_form.html.twig') }}
+{% endblock %}
