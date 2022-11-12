@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Livre;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -28,6 +31,15 @@ class LivreCrudController extends AbstractCrudController
             NumberField::new('number_of_page'),
             DateField::new('date_parution'),
             AssociationField::new('bibliotheque'),
+            AssociationField::new('auteur')
+                ->onlyOnDetail()
+
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 }
