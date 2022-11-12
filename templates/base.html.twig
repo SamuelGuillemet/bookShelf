@@ -32,19 +32,25 @@
 				flex: 1;
 			}
 		</style>
+		{% block style %}{% endblock %}
 	</head>
 	<body>
 		{% block menu %}
 			<!-- Navigation -->
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				<div class="container">
-					<a class="navbar-brand" href={{ path('app_bibliotheque_index') }}>Bibiothèque</a>
+					<a class="navbar-brand" href={{ path('app_home') }}>Accueil</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 							{{ render_bootstrap_menu('main') }}
+							{% if app.user %}
+								{{ render_bootstrap_menu('account') }}
+							{% else %}
+								{{ render_bootstrap_menu('anonymousaccount') }}
+							{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -53,6 +59,27 @@
 		{# menu #}
 		{% block body %}
 			<div class="container body-container">
+				{% block alerts %}
+					{% for type, messages in app.session.flashBag.all %}
+						{% for message in messages %}
+							{% if type == 'error'%}
+								{% set type = 'danger' %}
+							{% endif %}
+							{% if type == 'message'%}
+								{% set type = 'info' %}
+							{% endif %}
+							{# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
+							<div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+								<button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									<span class="sr-only">Close</span>
+								</button>
+								<p>{{ message|raw }}</p>
+							</div>
+						{% endfor %}
+					{% endfor %}
+				{% endblock %}
+				{# alerts #}
 				<main>
 					{% block main %}{% endblock %}
 				</main>
@@ -61,7 +88,7 @@
 		<div class="blank"></div>
 		<footer class="text-center text-lg-start bg-light text-muted">
 			<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-				FOOTER
+				Guillemet Samuel - 2022
 			</div>
 		</footer>
 	</body>
