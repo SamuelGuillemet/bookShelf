@@ -35,7 +35,8 @@ class Bibliotheque
     private $livres;
 
     /**
-     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="bibliothequePerso", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="bibliotheques")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $membre;
 
@@ -113,13 +114,8 @@ class Bibliotheque
         return $this->membre;
     }
 
-    public function setMembre(Membre $membre): self
+    public function setMembre(?Membre $membre): self
     {
-        // set the owning side of the relation if necessary
-        if ($membre->getBibliothequePerso() !== $this) {
-            $membre->setBibliothequePerso($this);
-        }
-
         $this->membre = $membre;
 
         return $this;
